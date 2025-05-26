@@ -5,31 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASISTENCIA EMPAQUE</title>
     <style>
-        body { font-family: sans-serif; padding: 1rem; max-width: 500px; margin: auto; }
-        label { display: block; margin-top: 1.2rem; font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 0.5rem; font-size: 1rem; margin-top: 0.3rem; }
-        button { margin-top: 2rem; padding: 0.75rem; font-size: 1rem; width: 100%; }
-        .titulo { font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; text-align: center; }
-        .logo {
+        body {
+            font-family: sans-serif;
+            padding: 1rem;
+            max-width: 500px;
+            margin: auto;
+            background-color: rgba(8,178,255,0.05);
+        }
+        label {
             display: block;
-            margin: 0 auto 1rem auto;
-            max-width: 100%;
-            height: auto;
+            margin-top: 1.2rem;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+        button {
+            margin-top: 2rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+            width: 100%;
+            background-color: rgba(8,178,255,1);
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .titulo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            text-align: center;
+        }
+        .subtitulo {
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: normal;
         }
     </style>
 </head>
 <body>
-    
     <div class="titulo">ASISTENCIA EMPAQUE</div>
+    <div class="subtitulo">Smurfit Westrock</div>
     <form id="formulario">
         <label for="nombre">1. Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required>
 
         <label>2. Entrada o Salida</label>
-        <input type="radio" id="entrada" name="tipo" value="Entrada" required>
-        <label for="entrada">Entrada</label>
-        <input type="radio" id="salida" name="tipo" value="Salida">
-        <label for="salida">Salida</label>
+        <div class="radio-group">
+            <label><input type="radio" id="entrada" name="tipo" value="Entrada" required> Entrada</label>
+            <label><input type="radio" id="salida" name="tipo" value="Salida"> Salida</label>
+        </div>
 
         <label for="carton">3. #Pacas Cartón</label>
         <input type="number" id="carton" name="carton" placeholder="Enter your answer" required>
@@ -42,7 +82,7 @@
 
         <input type="hidden" id="tienda" name="tienda">
 
-        <button type="submit">Submit</button>
+        <button type="submit">Enviar</button>
     </form>
 
     <script>
