@@ -47,7 +47,10 @@
             text-align: center;
             margin-bottom: 1rem;
         }
-        gap: 1rem;
+        .radio-group {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
             margin-top: 0.5rem;
         }
         .radio-option {
@@ -81,17 +84,17 @@
         </div>
 
         <label for="carton">3. #Pacas Cartón</label>
-        <input type="number" id="carton" name="carton" placeholder="Enter your answer" required>
+        <input type="number" id="carton" name="carton" placeholder="Enter your answer">
 
         <label for="playo">4. #Pacas Playo</label>
-        <input type="number" id="playo" name="playo" placeholder="Enter your answer" required>
+        <input type="number" id="playo" name="playo" placeholder="Enter your answer">
 
         <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
         <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
 
         <input type="hidden" id="tienda" name="tienda">
 
-        <button type="submit">Enviar</button>
+        <button type="submit" id="boton-enviar">Enviar</button>
     </form>
 
     <script>
@@ -100,12 +103,25 @@
         document.getElementById("tienda").value = tienda;
 
         const formulario = document.getElementById("formulario");
+        const boton = document.getElementById("boton-enviar");
+
         formulario.addEventListener("submit", async (e) => {
             e.preventDefault();
 
+            // Validar nombre y tipo obligatorios
+            const nombre = formulario.nombre.value.trim();
+            const tipo = formulario.tipo.value;
+            if (!nombre || !tipo) {
+                alert("Por favor completa al menos el nombre y si es entrada o salida.");
+                return;
+            }
+
+            boton.disabled = true;
+            boton.textContent = "Enviando...";
+
             const datos = {
-                nombre: formulario.nombre.value,
-                tipo: formulario.tipo.value,
+                nombre,
+                tipo,
                 carton: formulario.carton.value,
                 playo: formulario.playo.value,
                 comentarios: formulario.comentarios.value,
@@ -125,6 +141,9 @@
                 formulario.reset();
             } catch (error) {
                 alert("Error al enviar. Intenta de nuevo.");
+            } finally {
+                boton.disabled = false;
+                boton.textContent = "Enviar";
             }
         });
     </script>
