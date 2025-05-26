@@ -84,10 +84,10 @@
         </div>
 
         <label for="carton">3. #Pacas Cartón</label>
-        <input type="number" id="carton" name="carton" placeholder="Enter your answer">
+        <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0">
 
         <label for="playo">4. #Pacas Playo</label>
-        <input type="number" id="playo" name="playo" placeholder="Enter your answer">
+        <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0">
 
         <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
         <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
@@ -108,9 +108,9 @@
         formulario.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // Validar nombre y tipo obligatorios
             const nombre = formulario.nombre.value.trim();
             const tipo = formulario.tipo.value;
+
             if (!nombre || !tipo) {
                 alert("Por favor completa al menos el nombre y si es entrada o salida.");
                 return;
@@ -122,9 +122,9 @@
             const datos = {
                 nombre,
                 tipo,
-                carton: formulario.carton.value,
-                playo: formulario.playo.value,
-                comentarios: formulario.comentarios.value,
+                carton: formulario.carton.value || "0",
+                playo: formulario.playo.value || "0",
+                comentarios: formulario.comentarios.value || "",
                 tienda: formulario.tienda.value,
                 fecha: new Date().toISOString().split('T')[0],
                 hora: new Date().toTimeString().split(' ')[0]
