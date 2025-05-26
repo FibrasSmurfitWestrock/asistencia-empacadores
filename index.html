@@ -17,7 +17,10 @@
             margin-top: 1.2rem;
             font-weight: bold;
         }
-        input, select, textarea {
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
             width: 100%;
             padding: 0.5rem;
             font-size: 1rem;
@@ -46,15 +49,13 @@
         }
         .radio-group {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 0.5rem;
         }
-        .radio-group label {
+        .radio-option {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-            font-weight: normal;
+            gap: 0.5rem;
         }
     </style>
 </head>
@@ -67,8 +68,14 @@
 
         <label>2. Entrada o Salida</label>
         <div class="radio-group">
-            <label><input type="radio" id="entrada" name="tipo" value="Entrada" required> Entrada</label>
-            <label><input type="radio" id="salida" name="tipo" value="Salida"> Salida</label>
+            <div class="radio-option">
+                <input type="radio" id="entrada" name="tipo" value="Entrada" required>
+                <label for="entrada">Entrada</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="salida" name="tipo" value="Salida">
+                <label for="salida">Salida</label>
+            </div>
         </div>
 
         <label for="carton">3. #Pacas Cartón</label>
