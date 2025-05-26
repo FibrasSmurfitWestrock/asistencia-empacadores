@@ -69,7 +69,7 @@
     <div class="subtitulo">Smurfit Westrock</div>
     <form id="formulario">
         <label for="nombre">1. Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
 
         <label>2. Entrada o Salida</label>
         <div class="radio-group">
@@ -84,10 +84,10 @@
         </div>
 
         <label for="carton">3. #Pacas Cartón</label>
-        <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0">
+        <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0" step="1" pattern="\d*">
 
         <label for="playo">4. #Pacas Playo</label>
-        <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0">
+        <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0" step="1" pattern="\d*">
 
         <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
         <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
