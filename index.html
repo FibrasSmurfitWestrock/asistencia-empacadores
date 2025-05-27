@@ -1,155 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASISTENCIA EMPAQUE</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 1rem;
-            max-width: 500px;
-            margin: auto;
-            background-color: rgba(8,178,255,0.05);
-        }
-        label {
-            display: block;
-            margin-top: 1.2rem;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 0.5rem;
-            font-size: 1rem;
-            margin-top: 0.3rem;
-        }
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        button {
-            margin-top: 2rem;
-            padding: 0.75rem;
-            font-size: 1rem;
-            width: 100%;
-            background-color: rgba(8,178,255,1);
-            color: white;
-            border: none;
-            border-radius: 4px;
-        }
-        .titulo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-            text-align: center;
-        }
-        .subtitulo {
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .radio-group {
-            display: flex;
-            justify-content: flex-start;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        .radio-option label {
-            margin: 0;
-            font-weight: normal;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASISTENCIA EMPAQUE</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+      max-width: 500px;
+      margin: auto;
+      background-color: rgba(8,178,255,0.05);
+    }
+    label {
+      display: block;
+      margin-top: 1.2rem;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+    }
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      width: 100%;
+      background-color: rgba(8,178,255,1);
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    .titulo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      text-align: center;
+    }
+    .subtitulo {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: flex-start;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .radio-option label {
+      margin: 0;
+      font-weight: normal;
+    }
+    #mensaje-enviado {
+      display: none;
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #d1fae5;
+      border: 1px solid #10b981;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
-    <div class="titulo">ASISTENCIA EMPAQUE</div>
-    <div class="subtitulo">Smurfit Westrock</div>
-    <form id="formulario" novalidate>
-        <label for="nombre">1. Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
+  <div class="titulo">ASISTENCIA EMPAQUE</div>
+  <div class="subtitulo">Smurfit Westrock</div>
 
-        <label>2. Entrada o Salida</label>
-        <div class="radio-group">
-            <div class="radio-option">
-                <input type="radio" id="entrada" name="tipo" value="Entrada" required>
-                <label for="entrada">Entrada</label>
-            </div>
-            <div class="radio-option">
-                <input type="radio" id="salida" name="tipo" value="Salida">
-                <label for="salida">Salida</label>
-            </div>
-        </div>
+  <form id="formulario" novalidate>
+    <label for="nombre">1. Nombre</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
 
-        <label for="carton">3. #Pacas Cartón</label>
-        <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0" step="1">
+    <label>2. Entrada o Salida</label>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="entrada" name="tipo" value="Entrada" required>
+        <label for="entrada">Entrada</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="salida" name="tipo" value="Salida">
+        <label for="salida">Salida</label>
+      </div>
+    </div>
 
-        <label for="playo">4. #Pacas Playo</label>
-        <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0" step="1">
+    <label for="carton">3. #Pacas Cartón</label>
+    <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0" step="1">
 
-        <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
-        <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
+    <label for="playo">4. #Pacas Playo</label>
+    <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0" step="1">
 
-        <input type="hidden" id="tienda" name="tienda">
+    <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
+    <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
 
-        <button type="submit" id="boton-enviar">Enviar</button>
-    </form>
+    <input type="hidden" id="tienda" name="tienda">
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const tienda = params.get("tienda") || "NO DEFINIDA";
-        document.getElementById("tienda").value = tienda;
+    <button type="submit" id="boton-enviar">Enviar</button>
+  </form>
 
-        const formulario = document.getElementById("formulario");
-        const boton = document.getElementById("boton-enviar");
+  <div id="mensaje-enviado">
+    <h2>✅ ¡Registro enviado!</h2>
+    <p>Gracias por registrar tu asistencia.</p>
+    <p>Recarga la página si necesitas enviar otro.</p>
+  </div>
 
-        formulario.addEventListener("submit", async (e) => {
-            e.preventDefault();
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const tienda = params.get("tienda") || "NO DEFINIDA";
+    document.getElementById("tienda").value = tienda;
 
-            const nombre = formulario.nombre.value.trim();
-            const tipo = formulario.tipo.value;
+    const formulario = document.getElementById("formulario");
+    const boton = document.getElementById("boton-enviar");
+    const mensaje = document.getElementById("mensaje-enviado");
 
-            if (!nombre || !tipo || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre)) {
-                alert("Por favor completa correctamente el nombre (solo letras) y selecciona entrada o salida.");
-                return;
-            }
+    formulario.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-            boton.disabled = true;
-            boton.textContent = "Enviando...";
+      const nombre = formulario.nombre.value.trim();
+      const tipo = formulario.tipo.value;
 
-            const datos = {
-                nombre,
-                tipo,
-                carton: formulario.carton.value || "0",
-                playo: formulario.playo.value || "0",
-                comentarios: formulario.comentarios.value || "",
-                tienda: formulario.tienda.value,
-                fecha: new Date().toLocaleDateString(),
-                hora: new Date().toLocaleTimeString()
-            };
+      if (!nombre || !tipo || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre)) {
+        alert("Por favor completa correctamente el nombre (solo letras) y selecciona entrada o salida.");
+        return;
+      }
 
-            try {
-                await fetch("https://prod-113.westeurope.logic.azure.com:443/workflows/a3f5294a01a4464eb021d7aa066bc3d6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4KZ2tSmPoLS8ua76JjbQ-cZECg7LSLAtl1OysP9d6Ig", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(datos)
-                });
+      boton.disabled = true;
+      boton.textContent = "Enviando...";
 
-                alert("¡Registro enviado!");
-                window.location.reload();
-            } catch (error) {
-                alert("Error al enviar. Intenta de nuevo.");
-            } finally {
-                boton.disabled = false;
-                boton.textContent = "Enviar";
-            }
+      const datos = {
+        nombre,
+        tipo,
+        carton: formulario.carton.value || "0",
+        playo: formulario.playo.value || "0",
+        comentarios: formulario.comentarios.value || "",
+        tienda: formulario.tienda.value,
+        fecha: new Date().toLocaleDateString(),
+        hora: new Date().toLocaleTimeString()
+      };
+
+      try {
+        await fetch("https://prod-113.westeurope.logic.azure.com:443/workflows/a3f5294a01a4464eb021d7aa066bc3d6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4KZ2tSmPoLS8ua76JjbQ-cZECg7LSLAtl1OysP9d6Ig", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(datos)
         });
-    </script>
+
+        formulario.style.display = "none";
+        mensaje.style.display = "block";
+      } catch (error) {
+        alert("Error al enviar. Intenta de nuevo.");
+        boton.disabled = false;
+        boton.textContent = "Enviar";
+      }
+    });
+  </script>
 </body>
 </html>
