@@ -66,20 +66,31 @@
       margin: 0;
       font-weight: normal;
     }
-    #mensaje-enviado {
+    #mensaje-enviado, #mensaje-error {
       display: none;
       text-align: center;
       margin-top: 2rem;
       padding: 1rem;
+      border-radius: 8px;
+    }
+    #mensaje-enviado {
       background-color: #d1fae5;
       border: 1px solid #10b981;
-      border-radius: 8px;
+    }
+    #mensaje-error {
+      background-color: #fee2e2;
+      border: 1px solid #dc2626;
     }
   </style>
 </head>
 <body>
   <div class="titulo">ASISTENCIA EMPAQUE</div>
   <div class="subtitulo">Smurfit Westrock</div>
+
+  <div id="mensaje-error">
+    <h2>❌ Código inválido o sin tienda asignada</h2>
+    <p>Cierra esta página y vuelve a escanear el código QR para registrar tu asistencia correctamente.</p>
+  </div>
 
   <form id="formulario" novalidate>
     <label for="nombre">1. Nombre</label>
@@ -114,17 +125,25 @@
   <div id="mensaje-enviado">
     <h2>✅ ¡Registro enviado!</h2>
     <p>Gracias por registrar tu asistencia.</p>
-    <p>Recarga la página si necesitas enviar otro.</p>
+    <p>Cierra la página y vuelve a escanear el código QR para registrar nuevamente.</p>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const tienda = params.get("tienda") || "NO DEFINIDA";
-    document.getElementById("tienda").value = tienda;
+    const tienda = params.get("tienda");
 
+    const inputTienda = document.getElementById("tienda");
     const formulario = document.getElementById("formulario");
     const boton = document.getElementById("boton-enviar");
     const mensaje = document.getElementById("mensaje-enviado");
+    const error = document.getElementById("mensaje-error");
+
+    if (!tienda) {
+      formulario.style.display = "none";
+      error.style.display = "block";
+    } else {
+      inputTienda.value = tienda;
+    }
 
     formulario.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -140,15 +159,28 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
+      const hoy = new Date();
+      const dia = String(hoy.getDate()).padStart(2, '0');
+      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+      const año = hoy.getFullYear();
+      const horas = String(hoy.getHours()).padStart(2, '0');
+      const minutos = String(hoy.getMinutes()).padStart(2, '0');
+      const segundos = String(hoy.getSeconds()).padStart(2, '0');
+
+      const fecha = `${dia}/${mes}/${año}`;
+      const hora = `${horas}:${minutos}:${segundos}`;
+      const fechahora = `${fecha} ${hora}`;
+
       const datos = {
         nombre,
         tipo,
         carton: formulario.carton.value || "0",
         playo: formulario.playo.value || "0",
         comentarios: formulario.comentarios.value || "",
-        tienda: formulario.tienda.value,
-        fecha: new Date().toLocaleDateString(),
-        hora: new Date().toLocaleTimeString()
+        tienda: inputTienda.value,
+        fecha,
+        hora,
+        fechahora // este es útil para Power BI
       };
 
       try {
