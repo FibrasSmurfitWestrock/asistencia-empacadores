@@ -71,7 +71,6 @@
 <body>
     <div class="titulo">ASISTENCIA EMPAQUE</div>
     <div class="subtitulo">Smurfit Westrock</div>
-
     <form id="formulario" novalidate>
         <label for="nombre">1. Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
@@ -102,20 +101,13 @@
         <button type="submit" id="boton-enviar">Enviar</button>
     </form>
 
-    <div id="mensaje-enviado" style="display: none; text-align: center; margin-top: 2rem;">
-        <h2>✅ ¡Registro enviado!</h2>
-        <p>Gracias por registrar tu asistencia. Puedes cerrar esta ventana.</p>
-    </div>
-
     <script>
-        // Obtener nombre de tienda desde URL
         const params = new URLSearchParams(window.location.search);
         const tienda = params.get("tienda") || "NO DEFINIDA";
         document.getElementById("tienda").value = tienda;
 
         const formulario = document.getElementById("formulario");
         const boton = document.getElementById("boton-enviar");
-        const mensaje = document.getElementById("mensaje-enviado");
 
         formulario.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -149,11 +141,11 @@
                     body: JSON.stringify(datos)
                 });
 
-                // Oculta formulario y muestra mensaje de éxito
-                formulario.style.display = "none";
-                mensaje.style.display = "block";
+                alert("¡Registro enviado!");
+                window.location.reload();
             } catch (error) {
                 alert("Error al enviar. Intenta de nuevo.");
+            } finally {
                 boton.disabled = false;
                 boton.textContent = "Enviar";
             }
