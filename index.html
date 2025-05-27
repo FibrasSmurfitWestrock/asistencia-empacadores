@@ -140,6 +140,19 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
+      const hoy = new Date();
+      const dia = String(hoy.getDate()).padStart(2, '0');
+      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+      const año = hoy.getFullYear();
+      const fecha = `${dia}/${mes}/${año}`;
+
+      const hora = hoy.toLocaleTimeString('es-MX', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+
       const datos = {
         nombre,
         tipo,
@@ -147,8 +160,8 @@
         playo: formulario.playo.value || "0",
         comentarios: formulario.comentarios.value || "",
         tienda: formulario.tienda.value,
-        fecha: new Date().toLocaleDateString(),
-        hora: new Date().toLocaleTimeString()
+        fecha,
+        hora
       };
 
       try {
