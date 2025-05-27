@@ -130,13 +130,8 @@
                 playo: formulario.playo.value || "0",
                 comentarios: formulario.comentarios.value || "",
                 tienda: formulario.tienda.value,
-                fecha: new Date().toLocaleDateString("es-MX", {
-                    weekday: "long",
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric"
-                }).replace(/\./g, '').replace(/^\w/, c => c.toUpperCase()).normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
-                hora: new Date().toTimeString().split(' ')[0]
+                fecha: new Date().toLocaleDateString(),
+                hora: new Date().toLocaleTimeString()
             };
 
             try {
