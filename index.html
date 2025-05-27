@@ -66,7 +66,7 @@
       margin: 0;
       font-weight: normal;
     }
-    #mensaje-enviado, #mensaje-error {
+    .mensaje {
       display: none;
       text-align: center;
       margin-top: 2rem;
@@ -87,9 +87,9 @@
   <div class="titulo">ASISTENCIA EMPAQUE</div>
   <div class="subtitulo">Smurfit Westrock</div>
 
-  <div id="mensaje-error">
-    <h2>❌ Código inválido o sin tienda asignada</h2>
-    <p>Cierra esta página y vuelve a escanear el código QR para registrar tu asistencia correctamente.</p>
+  <div id="mensaje-error" class="mensaje">
+    <h2>❌ Registro incorrecto</h2>
+    <p>Cierra la página y vuelve a escanear el código QR de la tienda donde te encuentras.</p>
   </div>
 
   <form id="formulario" novalidate>
@@ -122,7 +122,7 @@
     <button type="submit" id="boton-enviar">Enviar</button>
   </form>
 
-  <div id="mensaje-enviado">
+  <div id="mensaje-enviado" class="mensaje">
     <h2>✅ ¡Registro enviado!</h2>
     <p>Gracias por registrar tu asistencia.</p>
     <p>Cierra la página y vuelve a escanear el código QR para registrar nuevamente.</p>
@@ -131,16 +131,16 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const tienda = params.get("tienda");
-
     const inputTienda = document.getElementById("tienda");
     const formulario = document.getElementById("formulario");
     const boton = document.getElementById("boton-enviar");
-    const mensaje = document.getElementById("mensaje-enviado");
-    const error = document.getElementById("mensaje-error");
+    const mensajeExito = document.getElementById("mensaje-enviado");
+    const mensajeError = document.getElementById("mensaje-error");
 
-    if (!tienda) {
+    // Si no hay tienda, mostrar mensaje de error y ocultar formulario
+    if (!tienda || tienda.trim() === "") {
       formulario.style.display = "none";
-      error.style.display = "block";
+      mensajeError.style.display = "block";
     } else {
       inputTienda.value = tienda;
     }
@@ -180,7 +180,7 @@
         tienda: inputTienda.value,
         fecha,
         hora,
-        fechahora // este es útil para Power BI
+        fechahora
       };
 
       try {
@@ -191,7 +191,7 @@
         });
 
         formulario.style.display = "none";
-        mensaje.style.display = "block";
+        mensajeExito.style.display = "block";
       } catch (error) {
         alert("Error al enviar. Intenta de nuevo.");
         boton.disabled = false;
