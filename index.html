@@ -117,7 +117,7 @@
     <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
     <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
 
-    <input type="hidden" id="tienda" name="tienda">
+    <input type="hidden" id="codigo" name="codigo">
 
     <button type="submit" id="boton-enviar">Enviar</button>
   </form>
@@ -131,7 +131,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const codigo = params.get("codigo");
-    const inputTienda = document.getElementById("tienda");
+    const inputCodigo = document.getElementById("codigo");
     const formulario = document.getElementById("formulario");
     const boton = document.getElementById("boton-enviar");
     const mensajeExito = document.getElementById("mensaje-enviado");
@@ -141,7 +141,7 @@
       formulario.style.display = "none";
       mensajeError.style.display = "block";
     } else {
-      inputTienda.value = codigo;
+      inputCodigo.value = codigo;
     }
 
     formulario.addEventListener("submit", async (e) => {
@@ -173,10 +173,10 @@
       const datos = {
         nombre,
         tipo,
-        carton: formulario.carton.value || "0",
-        playo: formulario.playo.value || "0",
+        carton: parseInt(formulario.carton.value) || 0,
+        playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
-        tienda: inputTienda.value,
+        codigo: inputCodigo.value,
         fecha,
         hora,
         fechahora
