@@ -137,7 +137,9 @@
     const mensajeExito = document.getElementById("mensaje-enviado");
     const mensajeError = document.getElementById("mensaje-error");
 
-    if (!codigo || codigo.trim() === "") {
+    const codigoValido = /^\d{6}$/.test(codigo);
+
+    if (!codigoValido) {
       formulario.style.display = "none";
       mensajeError.style.display = "block";
     } else {
@@ -149,6 +151,13 @@
 
       const nombre = formulario.nombre.value.trim();
       const tipo = formulario.tipo.value;
+      const codigoForm = inputCodigo.value;
+
+      // Validación final antes de enviar
+      if (!/^\d{6}$/.test(codigoForm)) {
+        alert("Código inválido. Cierra la página y escanea el código QR nuevamente.");
+        return;
+      }
 
       if (!nombre || !tipo || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre)) {
         alert("Por favor completa correctamente el nombre (solo letras) y selecciona entrada o salida.");
@@ -176,7 +185,7 @@
         carton: parseInt(formulario.carton.value) || 0,
         playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
-        codigo: inputCodigo.value,
+        codigo: codigoForm,
         fecha,
         hora,
         fechahora
