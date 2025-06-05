@@ -130,18 +130,19 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const codigo = params.get("codigo");
     const inputCodigo = document.getElementById("codigo");
     const formulario = document.getElementById("formulario");
     const boton = document.getElementById("boton-enviar");
     const mensajeExito = document.getElementById("mensaje-enviado");
     const mensajeError = document.getElementById("mensaje-error");
 
-    const codigoValido = /^\d{6}$/.test(codigo);
+    const codigo = params.get("codigo")?.trim() || "";
+    const codigoValido = /^[0-9]{6}$/.test(codigo);
 
     if (!codigoValido) {
-      formulario.style.display = "none";
+      formulario.remove(); // oculta completamente el formulario si el código no es válido
       mensajeError.style.display = "block";
+      document.title = "Código inválido";
     } else {
       inputCodigo.value = codigo;
     }
@@ -153,8 +154,7 @@
       const tipo = formulario.tipo.value;
       const codigoForm = inputCodigo.value;
 
-      // Validación final antes de enviar
-      if (!/^\d{6}$/.test(codigoForm)) {
+      if (!/^[0-9]{6}$/.test(codigoForm)) {
         alert("Código inválido. Cierra la página y escanea el código QR nuevamente.");
         return;
       }
