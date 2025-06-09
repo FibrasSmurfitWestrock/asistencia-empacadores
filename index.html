@@ -94,7 +94,7 @@
 
   <form id="formulario" novalidate>
     <label for="nombre">1. Nombre</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
+    <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
 
     <label>2. Entrada o Salida</label>
     <div class="radio-group">
@@ -109,13 +109,13 @@
     </div>
 
     <label for="carton">3. #Pacas Cartón</label>
-    <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0" step="1">
+    <input type="number" id="carton" name="carton" placeholder="Cantidad" min="0" step="1">
 
     <label for="playo">4. #Pacas Playo</label>
-    <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0" step="1">
+    <input type="number" id="playo" name="playo" placeholder="Cantidad" min="0" step="1">
 
-    <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
-    <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
+    <label for="comentarios">5. Comentarios (opcional)</label>
+    <textarea id="comentarios" name="comentarios" placeholder="Observaciones" rows="3"></textarea>
 
     <input type="hidden" id="codigo" name="codigo">
 
@@ -167,17 +167,24 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
+      // 📆 FORMATO DE FECHA Y HORA EN ESPAÑOL
       const hoy = new Date();
-      const dia = String(hoy.getDate()).padStart(2, '0');
-      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-      const año = hoy.getFullYear();
-      const horas = String(hoy.getHours()).padStart(2, '0');
-      const minutos = String(hoy.getMinutes()).padStart(2, '0');
-      const segundos = String(hoy.getSeconds()).padStart(2, '0');
+      const dias = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+      const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
-      const fechaISO = `${año}-${mes}-${dia}`;
-      const hora = `${horas}:${minutos}:${segundos}`;
-      const fechahora = `${fechaISO} ${hora}`;
+      const diaSemana = dias[hoy.getDay()];
+      const dia = hoy.getDate();
+      const mes = meses[hoy.getMonth()];
+      const año = hoy.getFullYear();
+
+      const fechaFormateada = `${diaSemana} ${dia}/${mes}/${año}`;
+
+      let horas = hoy.getHours();
+      const minutos = hoy.getMinutes().toString().padStart(2, '0');
+      const segundos = hoy.getSeconds().toString().padStart(2, '0');
+      const ampm = horas >= 12 ? "PM" : "AM";
+      horas = horas % 12 || 12;
+      const horaFormateada = `${horas}:${minutos}:${segundos} ${ampm}`;
 
       const datos = {
         nombre,
@@ -186,9 +193,9 @@
         playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
-        fecha: fechaISO,
-        hora,
-        fechahora
+        fecha: fechaFormateada,
+        hora: horaFormateada,
+        fechahora: `${fechaFormateada} ${horaFormateada}`
       };
 
       try {
