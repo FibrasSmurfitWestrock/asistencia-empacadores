@@ -94,7 +94,7 @@
 
   <form id="formulario" novalidate>
     <label for="nombre">1. Nombre</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Enter your answer" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" title="Solo letras y espacios">
+    <input type="text" id="nombre" name="nombre" required pattern="^[A-Za-zÁÉÍÓÚñáéíóúÑ\s]+$" title="Solo letras y espacios">
 
     <label>2. Entrada o Salida</label>
     <div class="radio-group">
@@ -109,13 +109,13 @@
     </div>
 
     <label for="carton">3. #Pacas Cartón</label>
-    <input type="number" id="carton" name="carton" placeholder="Enter your answer" min="0" step="1">
+    <input type="number" id="carton" name="carton" min="0" step="1">
 
     <label for="playo">4. #Pacas Playo</label>
-    <input type="number" id="playo" name="playo" placeholder="Enter your answer" min="0" step="1">
+    <input type="number" id="playo" name="playo" min="0" step="1">
 
-    <label for="comentarios">5. Comentarios (Llenar en caso de existir algún requerimiento)</label>
-    <textarea id="comentarios" name="comentarios" placeholder="Enter your answer" rows="3"></textarea>
+    <label for="comentarios">5. Comentarios</label>
+    <textarea id="comentarios" name="comentarios" rows="3"></textarea>
 
     <input type="hidden" id="codigo" name="codigo">
 
@@ -155,12 +155,12 @@
       const codigoForm = inputCodigo.value;
 
       if (!/^[0-9]{6}$/.test(codigoForm)) {
-        alert("Código inválido. Cierra la página y escanea el código QR nuevamente.");
+        alert("Código inválido. Cierra la página y escanea el QR nuevamente.");
         return;
       }
 
-      if (!nombre || !tipo || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre)) {
-        alert("Por favor completa correctamente el nombre (solo letras) y selecciona entrada o salida.");
+      if (!nombre || !tipo || !/^[A-Za-zÁÉÍÓÚñáéíóúÑ\s]+$/.test(nombre)) {
+        alert("Completa correctamente el nombre y selecciona entrada o salida.");
         return;
       }
 
@@ -169,19 +169,8 @@
 
       const hoy = new Date();
 
-      const diaSemana = hoy.toLocaleDateString("es-MX", { weekday: "long" });
-      const dia = String(hoy.getDate()).padStart(2, '0');
-      const mes = hoy.toLocaleDateString("es-MX", { month: "long" }).toLowerCase();
-      const año = hoy.getFullYear();
-      const fecha = `${diaSemana} ${dia}/${mes}/${año}`;
-
-      const hora = hoy.toLocaleTimeString("es-MX", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true
-      }).replace('.', '').toUpperCase(); // Ej. 1:27 PM
-
-      const fechahora = `${fecha} ${hora}`;
+      const fechaISO = hoy.toISOString().split("T")[0]; // YYYY-MM-DD
+      const horaISO = hoy.toTimeString().split(" ")[0]; // HH:MM:SS
 
       const datos = {
         nombre,
@@ -190,9 +179,8 @@
         playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
-        fecha,
-        hora,
-        fechahora
+        fecha: fechaISO,
+        hora: horaISO
       };
 
       try {
