@@ -168,23 +168,20 @@
       boton.textContent = "Enviando...";
 
       const hoy = new Date();
-      const fechaFormateada = hoy.toLocaleDateString('es-MX', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
 
-      const fecha = fechaFormateada
-        .replace(/^./, c => c.toLowerCase()) // Primera minúscula
-        .replace(' de ', '/')
-        .replace(' de ', '/');
+      const diaSemana = hoy.toLocaleDateString("es-MX", { weekday: "long" });
+      const dia = String(hoy.getDate()).padStart(2, '0');
+      const mes = hoy.toLocaleDateString("es-MX", { month: "long" }).toLowerCase();
+      const año = hoy.getFullYear();
+      const fecha = `${diaSemana} ${dia}/${mes}/${año}`;
 
-      const hora = hoy.toLocaleTimeString('es-MX', {
-        hour: 'numeric',
-        minute: '2-digit',
+      const hora = hoy.toLocaleTimeString("es-MX", {
+        hour: "numeric",
+        minute: "2-digit",
         hour12: true
-      }).replace('.', '').replace('.', '').toUpperCase();
+      }).replace('.', '').toUpperCase(); // Ej. 1:27 PM
+
+      const fechahora = `${fecha} ${hora}`;
 
       const datos = {
         nombre,
@@ -194,7 +191,8 @@
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
         fecha,
-        hora
+        hora,
+        fechahora
       };
 
       try {
