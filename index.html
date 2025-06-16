@@ -3,20 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ASISTENCIA EMPAQUE</title>
+  <title>Asistencia Empaque</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&display=swap');
+
     body {
-      font-family: sans-serif;
-      padding: 1rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #003865;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    header h2 {
+      margin: 5px 0 0 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .container {
       max-width: 500px;
       margin: auto;
-      background-color: rgba(8,178,255,0.05);
+      padding: 1rem;
     }
+
     label {
       display: block;
       margin-top: 1.2rem;
       font-weight: bold;
     }
+
     input[type="text"],
     input[type="number"],
     select,
@@ -26,46 +53,42 @@
       font-size: 1rem;
       margin-top: 0.3rem;
     }
+
     input[type="number"]::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+
     button {
       margin-top: 2rem;
       padding: 0.75rem;
       font-size: 1rem;
       width: 100%;
-      background-color: rgba(8,178,255,1);
+      background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
-    }
-    .titulo {
-      font-size: 1.4rem;
+      border-radius: 6px;
       font-weight: bold;
-      margin-bottom: 0.3rem;
-      text-align: center;
     }
-    .subtitulo {
-      font-size: 1rem;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+
     .radio-group {
       display: flex;
       justify-content: flex-start;
       gap: 1rem;
       margin-top: 0.5rem;
     }
+
     .radio-option {
       display: flex;
       align-items: center;
       gap: 0.3rem;
     }
+
     .radio-option label {
       margin: 0;
       font-weight: normal;
     }
+
     .mensaje {
       display: none;
       text-align: center;
@@ -73,10 +96,12 @@
       padding: 1rem;
       border-radius: 8px;
     }
+
     #mensaje-enviado {
       background-color: #d1fae5;
       border: 1px solid #10b981;
     }
+
     #mensaje-error {
       background-color: #fee2e2;
       border: 1px solid #dc2626;
@@ -84,48 +109,52 @@
   </style>
 </head>
 <body>
-  <div class="titulo">ASISTENCIA EMPAQUE</div>
-  <div class="subtitulo">Smurfit Westrock</div>
+  <header>
+    <h1>Asistencia Empaque</h1>
+    <h2>Fibras Smurfit Westrock</h2>
+  </header>
 
-  <div id="mensaje-error" class="mensaje">
-    <h2>❌ Registro incorrecto</h2>
-    <p>Cierra la página y vuelve a escanear el código QR de la tienda donde te encuentras.</p>
-  </div>
-
-  <form id="formulario" novalidate>
-    <label for="nombre">1. Nombre</label>
-    <input type="text" id="nombre" name="nombre" required pattern="^[A-Za-zÁÉÍÓÚñáéíóúÑ\s]+$" title="Solo letras y espacios">
-
-    <label>2. Entrada o Salida</label>
-    <div class="radio-group">
-      <div class="radio-option">
-        <input type="radio" id="entrada" name="tipo" value="Entrada" required>
-        <label for="entrada">Entrada</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="salida" name="tipo" value="Salida">
-        <label for="salida">Salida</label>
-      </div>
+  <div class="container">
+    <div id="mensaje-error" class="mensaje">
+      <h2>❌ Registro incorrecto</h2>
+      <p>Cierra la página y vuelve a escanear el código QR de la tienda donde te encuentras.</p>
     </div>
 
-    <label for="carton">3. #Pacas Cartón</label>
-    <input type="number" id="carton" name="carton" min="0" step="1">
+    <form id="formulario" novalidate>
+      <label for="nombre">1. Nombre</label>
+      <input type="text" id="nombre" name="nombre" required pattern="^[A-Za-zÁÉÍÓÚñáéíóúÑ\s]+$" title="Solo letras y espacios">
 
-    <label for="playo">4. #Pacas Playo</label>
-    <input type="number" id="playo" name="playo" min="0" step="1">
+      <label>2. Entrada o Salida</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="entrada" name="tipo" value="Entrada" required>
+          <label for="entrada">Entrada</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="salida" name="tipo" value="Salida">
+          <label for="salida">Salida</label>
+        </div>
+      </div>
 
-    <label for="comentarios">5. Comentarios</label>
-    <textarea id="comentarios" name="comentarios" rows="3"></textarea>
+      <label for="carton">3. #Pacas Cartón</label>
+      <input type="number" id="carton" name="carton" min="0" step="1">
 
-    <input type="hidden" id="codigo" name="codigo">
+      <label for="playo">4. #Pacas Playo</label>
+      <input type="number" id="playo" name="playo" min="0" step="1">
 
-    <button type="submit" id="boton-enviar">Enviar</button>
-  </form>
+      <label for="comentarios">5. Comentarios</label>
+      <textarea id="comentarios" name="comentarios" rows="3"></textarea>
 
-  <div id="mensaje-enviado" class="mensaje">
-    <h2>✅ ¡Registro enviado!</h2>
-    <p>Gracias por registrar tu asistencia.</p>
-    <p>Cierra la página y vuelve a escanear el código QR para registrar nuevamente.</p>
+      <input type="hidden" id="codigo" name="codigo">
+
+      <button type="submit" id="boton-enviar">Enviar</button>
+    </form>
+
+    <div id="mensaje-enviado" class="mensaje">
+      <h2>✅ ¡Registro enviado!</h2>
+      <p>Gracias por registrar tu asistencia.</p>
+      <p>Cierra la página y vuelve a escanear el código QR para registrar nuevamente.</p>
+    </div>
   </div>
 
   <script>
@@ -168,9 +197,8 @@
       boton.textContent = "Enviando...";
 
       const hoy = new Date();
-
-      const fechaISO = hoy.toISOString().split("T")[0]; // YYYY-MM-DD
-      const horaISO = hoy.toTimeString().split(" ")[0]; // HH:MM:SS
+      const fechaISO = hoy.toISOString().split("T")[0];
+      const horaISO = hoy.toTimeString().split(" ")[0];
 
       const datos = {
         nombre,
