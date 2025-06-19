@@ -148,6 +148,7 @@
       <input type="hidden" id="codigo" name="codigo">
       <input type="hidden" id="latitud" name="latitud">
       <input type="hidden" id="longitud" name="longitud">
+      <input type="hidden" id="ubicacion" name="ubicacion">
 
       <button type="submit" id="boton-enviar">Enviar</button>
     </form>
@@ -212,7 +213,8 @@
         fecha: fechaISO,
         hora: horaISO,
         latitud: document.getElementById("latitud").value,
-        longitud: document.getElementById("longitud").value
+        longitud: document.getElementById("longitud").value,
+        ubicacion: document.getElementById("ubicacion").value
       };
 
       try {
@@ -234,8 +236,11 @@
     window.onload = function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-          document.getElementById("latitud").value = position.coords.latitude;
-          document.getElementById("longitud").value = position.coords.longitude;
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          document.getElementById("latitud").value = lat;
+          document.getElementById("longitud").value = lon;
+          document.getElementById("ubicacion").value = `https://www.google.com/maps?q=${lat},${lon}`;
         }, function (error) {
           console.log("Ubicación no disponible: " + error.message);
         });
