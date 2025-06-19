@@ -146,6 +146,8 @@
       <textarea id="comentarios" name="comentarios" rows="3"></textarea>
 
       <input type="hidden" id="codigo" name="codigo">
+      <input type="hidden" id="latitud" name="latitud">
+      <input type="hidden" id="longitud" name="longitud">
 
       <button type="submit" id="boton-enviar">Enviar</button>
     </form>
@@ -208,7 +210,9 @@
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
         fecha: fechaISO,
-        hora: horaISO
+        hora: horaISO,
+        latitud: document.getElementById("latitud").value,
+        longitud: document.getElementById("longitud").value
       };
 
       try {
@@ -226,6 +230,19 @@
         boton.textContent = "Enviar";
       }
     });
+
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          document.getElementById("latitud").value = position.coords.latitude;
+          document.getElementById("longitud").value = position.coords.longitude;
+        }, function (error) {
+          console.log("Ubicación no disponible: " + error.message);
+        });
+      } else {
+        console.log("Geolocalización no soportada.");
+      }
+    };
   </script>
 </body>
 </html>
