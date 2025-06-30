@@ -134,7 +134,7 @@
       <input type="hidden" id="latitud" name="latitud">
       <input type="hidden" id="longitud" name="longitud">
       <input type="hidden" id="ubicacion" name="ubicacion">
-      <input type="hidden" id="zonaHoraria" name="zonaHoraria">
+      <input type="hidden" id="fechaHora" name="fechaHora">
 
       <button type="submit" id="boton-enviar">Enviar</button>
     </form>
@@ -185,11 +185,8 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
-      const hoy = new Date();
-      const fechaISO = hoy.toISOString().split("T")[0];
-      const horaISO = hoy.toTimeString().split(" ")[0];
-      const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.getElementById("zonaHoraria").value = zona;
+      const fechaHora = new Date().toISOString();
+      document.getElementById("fechaHora").value = fechaHora;
 
       const datos = {
         nombre,
@@ -198,9 +195,7 @@
         playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
-        fecha: fechaISO,
-        hora: horaISO,
-        zonaHoraria: zona,
+        fechaHora,
         latitud: document.getElementById("latitud").value,
         longitud: document.getElementById("longitud").value,
         ubicacion: document.getElementById("ubicacion").value
