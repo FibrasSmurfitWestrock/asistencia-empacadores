@@ -134,7 +134,7 @@
       <input type="hidden" id="latitud" name="latitud">
       <input type="hidden" id="longitud" name="longitud">
       <input type="hidden" id="ubicacion" name="ubicacion">
-      <input type="hidden" id="zonaHoraria" name="zonaHoraria"> <!-- NUEVO -->
+      <input type="hidden" id="zonaHoraria" name="zonaHoraria">
 
       <button type="submit" id="boton-enviar">Enviar</button>
     </form>
@@ -189,7 +189,6 @@
       const fechaISO = hoy.toISOString().split("T")[0];
       const horaISO = hoy.toTimeString().split(" ")[0];
       const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
       document.getElementById("zonaHoraria").value = zona;
 
       const datos = {
