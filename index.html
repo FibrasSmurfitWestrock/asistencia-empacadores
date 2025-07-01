@@ -185,8 +185,9 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
-      const fechaHora = new Date().toISOString();
-      document.getElementById("fechaHora").value = fechaHora;
+      const now = new Date();
+      const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 19);
+      document.getElementById("fechaHora").value = localDateTime;
 
       const datos = {
         nombre,
@@ -195,7 +196,7 @@
         playo: parseInt(formulario.playo.value) || 0,
         comentarios: formulario.comentarios.value || "",
         codigo: codigoForm,
-        fechaHora,
+        fechaHora: localDateTime,
         latitud: document.getElementById("latitud").value,
         longitud: document.getElementById("longitud").value,
         ubicacion: document.getElementById("ubicacion").value
