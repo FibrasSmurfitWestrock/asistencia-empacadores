@@ -186,26 +186,28 @@
       boton.disabled = true;
       boton.textContent = "Enviando...";
 
-      // FECHA Y HORA LOCAL
+      // Obtener zona horaria local real
       const now = new Date();
-      const dias = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-      const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+      const zona = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      const diaSemana = dias[now.getDay()];
-      const dia = String(now.getDate()).padStart(2, '0');
-      const mes = meses[now.getMonth()];
-      const año = now.getFullYear();
+      const opcionesFecha = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: zona
+      };
 
-      const fecha = `${diaSemana}, ${dia} de ${mes} de ${año}`;
+      const opcionesHora = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+        timeZone: zona
+      };
 
-      let horas = now.getHours();
-      const minutos = String(now.getMinutes()).padStart(2, '0');
-      const segundos = String(now.getSeconds()).padStart(2, '0');
-      const ampm = horas >= 12 ? 'p. m.' : 'a. m.';
-      horas = horas % 12;
-      horas = horas ? horas : 12;
-
-      const hora = `${String(horas).padStart(2, '0')}:${minutos}:${segundos} ${ampm}`;
+      const fecha = new Intl.DateTimeFormat('es-MX', opcionesFecha).format(now);
+      const hora = new Intl.DateTimeFormat('es-MX', opcionesHora).format(now);
 
       document.getElementById("fecha").value = fecha;
       document.getElementById("hora").value = hora;
